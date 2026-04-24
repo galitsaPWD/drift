@@ -6,9 +6,6 @@ const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-// Persistence Client (Safe to use in API routes)
-const supabase = createClient(SUPABASE_URL!, SUPABASE_ANON_KEY!);
-
 let cachedToken: string | null = null;
 let tokenExpiry = 0;
 
@@ -74,6 +71,7 @@ export async function GET(request: Request) {
       }, { status: 500 });
   }
 
+  const supabase = createClient(SUPABASE_URL!, SUPABASE_ANON_KEY!);
   console.log(`[MusicResolve] Starting discovery for: ${url.substring(0, 50)}...`);
 
   let name = "Unknown Track";
