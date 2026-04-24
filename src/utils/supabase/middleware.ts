@@ -12,9 +12,15 @@ export const updateSession = async (request: NextRequest) => {
     },
   });
 
+  // --- FAIL-SAFE GUARD ---
+  if (!supabaseUrl || !supabaseKey) {
+    console.warn("[Middleware] Supabase credentials missing. Skipping session update.");
+    return supabaseResponse;
+  }
+
   const supabase = createServerClient(
-    supabaseUrl!,
-    supabaseKey!,
+    supabaseUrl,
+    supabaseKey,
     {
       cookies: {
         getAll() {
