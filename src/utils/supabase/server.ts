@@ -2,12 +2,25 @@
 import { cookies } from "next/headers";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
 export const createClient = (cookieStore: Awaited<ReturnType<typeof cookies>>) => {
+  if (!supabaseUrl || !supabaseKey) {
+    return createServerClient(
+      supabaseUrl || "MISSING_URL",
+      supabaseKey || "MISSING_KEY",
+      {
+        cookies: {
+          getAll() { return [] },
+          setAll() {}
+        },
+      }
+    );
+  }
+
   return createServerClient(
-    supabaseUrl!,
-    supabaseKey!,
+    supabaseUrl,
+    supabaseKey,
     {
       cookies: {
         getAll() {
