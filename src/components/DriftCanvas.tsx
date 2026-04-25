@@ -405,7 +405,7 @@ export function DriftCanvas() {
 
   if (error || pairings.length === 0) {
     return (
-      <div className="fixed inset-0 bg-black flex flex-col items-center justify-center z-50 p-6 overflow-hidden">
+      <div className="fixed inset-0 bg-black flex flex-col items-center justify-center z-50 p-6 overflow-hidden flex-center-void">
         {/* Grain Overlay */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.03] grayscale bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-10" />
         
@@ -431,7 +431,7 @@ export function DriftCanvas() {
           </div>
 
           {!error && (
-            <Link href="/submit">
+            <Link href="/submit" className="be-the-first-btn">
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
