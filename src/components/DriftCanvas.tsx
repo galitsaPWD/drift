@@ -107,6 +107,15 @@ export function DriftCanvas() {
   }, []);
 
   useEffect(() => {
+    // Session persistence: Don't show greeting if already unlocked in this session
+    if (typeof window !== 'undefined') {
+      const unlocked = sessionStorage.getItem("drift_unlocked") === "true";
+      if (unlocked) {
+        setIsAudioUnlocked(true);
+        audioEngine?.resume();
+      }
+    }
+    
     hideHintsOnMove(); // initial trigger
     const el = document.body;
     el.addEventListener("pointerdown", hideHintsOnMove, { passive: true });
@@ -456,6 +465,7 @@ export function DriftCanvas() {
           <RitualGate 
              onEnter={() => {
                 setIsAudioUnlocked(true);
+                sessionStorage.setItem("drift_unlocked", "true");
                 audioEngine?.resume();
              }} 
           />
@@ -467,7 +477,7 @@ export function DriftCanvas() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="relative w-full h-screen bg-black cursor-crosshair overflow-hidden touch-none"
+        className="relative w-full h-[100dvh] bg-black cursor-crosshair overflow-hidden touch-none"
       >
         {activePairing && (
           <>
@@ -491,8 +501,8 @@ export function DriftCanvas() {
             />
           </>
         )}
-
-        {/* Axis Hints */}
+        
+        {/* Navigation Overlays */}
         <AnimatePresence>
           {!isEntry && showHints && (
             <motion.div
@@ -500,27 +510,18 @@ export function DriftCanvas() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.8 }}
-              className="absolute inset-0 pointer-events-none select-none opacity-[.08] font-dm-sans text-[7px] uppercase tracking-widest z-30"
+              className="absolute inset-0 pointer-events-none select-none opacity-[.08] font-dm-sans uppercase tracking-widest z-30"
             >
-              <span className="absolute top-16 left-1/2 -translate-x-1/2">Loud (Energy)</span>
-              <span className="absolute bottom-4 left-1/2 -translate-x-1/2">Quiet (Energy)</span>
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 -rotate-90">Soft (Tempo)</span>
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 rotate-90">Hard (Tempo)</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              {/* Axis Hints */}
+              <span className="absolute top-16 left-1/2 -translate-x-1/2 text-[7px]">Loud (Energy)</span>
+              <span className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[7px]">Quiet (Energy)</span>
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 -rotate-90 text-[7px]">Soft (Tempo)</span>
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 rotate-90 text-[7px]">Hard (Tempo)</span>
 
-        {/* Swipe Hint */}
-        <AnimatePresence>
-          {!isEntry && showHints && (
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              transition={{ duration: 0.8 }}
-              className="absolute bottom-10 left-1/2 -translate-x-1/2 font-dm-sans text-[10px] uppercase tracking-[.25em] text-muted2 pointer-events-none z-30"
-            >
-              drag to explore
+              {/* Exploration Hint — Centered Sync */}
+              <span className="absolute bottom-12 left-1/2 -translate-x-1/2 text-[10px] tracking-[.25em] text-white/40">
+                drag to explore
+              </span>
             </motion.div>
           )}
         </AnimatePresence>

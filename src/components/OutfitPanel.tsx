@@ -118,7 +118,7 @@ export function OutfitPanel({ pairing, isPlaying = false, discArt, currentIndex,
                       alt={`${pairing.vibe} - photo ${activePicIndex + 1}`}
                       fill
                       priority
-                      quality={100}
+                      unoptimized={true}
                       crossOrigin="anonymous"
                       onLoad={handleImageLoad}
                       className="object-cover"
@@ -215,7 +215,7 @@ export function OutfitPanel({ pairing, isPlaying = false, discArt, currentIndex,
           {/* ── Vibe + Song Meta — z-20 (in front of disc) ── */}
           <div className="absolute bottom-24 left-8 md:left-12 z-20 flex flex-col gap-4 max-w-[85%]">
             <div className="space-y-4">
-              <h1 className="font-cormorant italic text-[clamp(44px,25%,90px)] text-shadow-editorial leading-[0.85] -ml-1">
+              <h1 className="font-dm-sans uppercase tracking-[0.05em] font-bold text-[clamp(44px,25%,90px)] text-shadow-editorial leading-[0.85] -ml-1 opacity-90">
                 {pairing.vibe}
               </h1>
               <div className="flex flex-col gap-1 border-l border-white/20 pl-4 md:pl-6 py-0.5">

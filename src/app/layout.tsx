@@ -16,8 +16,17 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "DRIFT — Taste Made Tangible",
-  description: "A fashion and music pairing experience.",
+  title: "DRIFT — High Fidelity Spatial Archive",
+  description: "A spatial curation of sound and style. Explore the grid.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "DRIFT",
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+  }
 };
 
 import { Header } from "@/components/Header";
@@ -50,8 +59,8 @@ export default function RootLayout({
           <div suppressHydrationWarning className="absolute inset-0 bg-[#020202]/60" />
         </div>
 
-        {/* Main Content Viewport */}
-        <div suppressHydrationWarning className="relative mx-auto w-full min-h-screen bg-black z-10">
+        {/* Main Content Viewport — Locked to Dynamic Viewport Height */}
+        <div suppressHydrationWarning className="relative mx-auto w-full h-[100dvh] bg-black z-10 overflow-hidden">
           <ClientOnly>
             <Header />
             <div className="grain-overlay" aria-hidden="true" />
