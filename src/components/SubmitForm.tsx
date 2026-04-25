@@ -597,7 +597,7 @@ export function SubmitForm() {
                       step="0.01" 
                       value={energy}
                       onChange={(e) => setEnergy(parseFloat(e.target.value))}
-                      className="absolute inset-y-0 w-full opacity-0 cursor-ew-resize z-20"
+                      className="absolute -inset-y-4 w-full opacity-0 cursor-ew-resize z-20"
                     />
                   </div>
                 </div>
@@ -626,7 +626,7 @@ export function SubmitForm() {
                       step="0.01" 
                       value={tempo}
                       onChange={(e) => setTempo(parseFloat(e.target.value))}
-                      className="absolute inset-y-0 w-full opacity-0 cursor-ew-resize z-20"
+                      className="absolute -inset-y-4 w-full opacity-0 cursor-ew-resize z-20"
                     />
                   </div>
                 </div>
