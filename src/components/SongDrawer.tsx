@@ -85,7 +85,7 @@ export function SongDrawer({ isOpen, onClose, pairing, discArt, isPlaying, curre
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/60 backdrop-blur-md z-40"
+            className="absolute inset-0 bg-black/80 z-40"
           />
 
           {/* Drawer */}
@@ -94,14 +94,22 @@ export function SongDrawer({ isOpen, onClose, pairing, discArt, isPlaying, curre
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="absolute bottom-0 left-0 right-0 max-h-[85vh] md:h-[48vh] bg-[#0c0c0c]/80 backdrop-blur-3xl border-t border-white/10 z-50 p-6 pt-12 md:px-16 md:py-16 flex flex-col md:flex-row gap-8 md:gap-16 overflow-y-auto rounded-t-3xl md:rounded-t-none shadow-[0_-20px_60px_-15px_rgba(0,0,0,0.5)]"
+            drag="y"
+            dragConstraints={{ top: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(e, info) => {
+              if (info.offset.y > 100 || info.velocity.y > 500) {
+                onClose();
+              }
+            }}
+            className="absolute bottom-0 left-0 right-0 max-h-[85vh] md:h-[48vh] bg-[#0a0a0a] border-t border-white/10 z-50 p-6 pt-12 md:px-16 md:py-16 flex flex-col md:flex-row gap-8 md:gap-16 overflow-y-auto rounded-t-3xl md:rounded-t-none shadow-[0_-20px_60px_-15px_rgba(0,0,0,0.5)]"
           >
             {/* Mobile Drag Indicator */}
             <div className="absolute top-4 left-1/2 -translate-x-1/2 w-10 h-1.5 bg-white/20 rounded-full md:hidden" />
 
             <button 
               onClick={onClose}
-              className="absolute top-6 right-6 md:top-8 md:right-8 text-muted hover:text-text transition-colors z-20 bg-white/5 md:bg-transparent rounded-full p-2 md:p-0 backdrop-blur-md md:backdrop-blur-none"
+              className="absolute top-6 right-6 md:top-8 md:right-8 text-muted hover:text-text transition-colors z-20 bg-white/5 md:bg-transparent rounded-full p-2 md:p-0 hidden md:block"
             >
               <X size={20} />
             </button>
@@ -141,7 +149,7 @@ export function SongDrawer({ isOpen, onClose, pairing, discArt, isPlaying, curre
             {/* Content info */}
             <div className="flex flex-col justify-end gap-8 md:gap-10 flex-1 z-10">
               <div className="space-y-3 md:space-y-5">
-                <h3 className="font-cormorant italic text-4xl md:text-6xl leading-[1.1] text-balance pr-8 text-text shadow-black drop-shadow-md">
+                <h3 className="font-dm-sans uppercase tracking-[0.05em] font-bold text-4xl md:text-5xl leading-[1.1] text-balance pr-8 text-text shadow-black drop-shadow-md">
                   {pairing.vibe}
                 </h3>
                 <div className="space-y-1">

@@ -193,11 +193,15 @@ export function DriftCanvas() {
       });
 
       // Update state and Auto-Snap to the perfect center
-      if (nearest && nearest.id !== activePairing?.id) {
+      if (nearest) {
+        if (nearest.id !== activePairing?.id) {
           const newIndex = pairings.findIndex(p => p.id === nearest?.id);
           setCurrentIndex(newIndex);
-          // Gently align the virtual cursor with the pairing's actual data
+        }
+        // Always snap to the nearest pairing's exact coordinates to ensure auto-lock/rubber-banding
+        if (px !== nearest.tempo || py !== nearest.energy) {
           snapTo(nearest.tempo, nearest.energy);
+        }
       }
     }, 100); 
 
@@ -528,10 +532,10 @@ export function DriftCanvas() {
 
         {/* Shadow Image Pre-loader Cluster (Zero-Latency Rendering) */}
         <div className="pointer-events-none opacity-0 select-none -z-[200]">
-          {[
+          {Array.from(new Set([
             (currentIndex + 1) % pairings.length,
             (currentIndex - 1 + pairings.length) % pairings.length
-          ].map(idx => {
+          ])).map(idx => {
             const p = pairings[idx];
             return p ? <ShadowImage key={`shadow-${p.id}`} src={p.image_url} /> : null;
           })}
