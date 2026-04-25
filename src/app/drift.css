@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #050505;
+  --text: rgba(255, 255, 255, 0.95);
+  --muted: rgba(255, 255, 255, 0.4);
+  --muted2: rgba(255, 255, 255, 0.2);
+  --vibe-color: #ffffff;
+}
+
+@layer base {
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    @apply font-dm-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px;
+    mix-blend-mode: overlay;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 50;
+  }
+
+  .text-shadow-editorial {
+    text-shadow: 0 2px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .bottom-gradient {
+    background: linear-gradient(
+      to top,
+      rgba(14, 14, 14, 0.92) 0%,
+      rgba(14, 14, 14, 0.40) 28%,
+      rgba(14, 14, 14, 0.0) 55%
+    );
+  }
+
+  .premium-frame {
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.05),
+      0 0 120px rgba(0, 0, 0, 0.8),
+      inset 0 0 80px rgba(0, 0, 0, 0.4);
+  }
+}
