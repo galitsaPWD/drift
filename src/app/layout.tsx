@@ -60,7 +60,7 @@ export default function RootLayout({
         </div>
 
         {/* Main Content Viewport — Locked to Dynamic Viewport Height */}
-        <div suppressHydrationWarning className="relative mx-auto w-full h-[100dvh] bg-black z-10 overflow-hidden">
+        <div suppressHydrationWarning className="relative mx-auto w-full min-h-[100dvh] bg-black z-10">
           <ClientOnly>
             <Header />
             <div className="grain-overlay" aria-hidden="true" />
