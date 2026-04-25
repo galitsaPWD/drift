@@ -405,9 +405,46 @@ export function DriftCanvas() {
 
   if (error || pairings.length === 0) {
     return (
-      <div className="w-full h-screen bg-black flex flex-col items-center justify-center gap-4">
-        <span className="font-cormorant italic text-2xl text-muted">{error || "the grid is empty."}</span>
-        <Link href="/submit" className="font-dm-sans text-[10px] uppercase tracking-widest text-muted2 hover:text-text transition-colors">be the first</Link>
+      <div className="fixed inset-0 bg-black flex flex-col items-center justify-center z-50 p-6 overflow-hidden">
+        {/* Grain Overlay */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03] grayscale bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-10" />
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex flex-col items-center gap-12 text-center"
+        >
+          <div className="flex flex-col items-center gap-4">
+            <h1 className="font-dm-sans text-[10px] uppercase tracking-[1em] text-white/30 ml-[1em]">
+              WORLD ARCHIVE
+            </h1>
+            <div className="w-1 h-1 rounded-full bg-white/20" />
+          </div>
+
+          <div className="flex flex-col items-center gap-6">
+            <h2 className="text-white font-dm-sans text-xl md:text-2xl uppercase tracking-[.4em] font-light leading-relaxed">
+              {error ? "SYSTEM" : "THE GRID IS"} <span className="opacity-40 italic">{error ? "ERROR" : "EMPTY"}</span>
+            </h2>
+            <p className="max-w-xs text-[9px] uppercase tracking-[.3em] leading-loose text-white/30 font-dm-sans">
+              {error ? error : "INITIATE THE FIRST SPATIAL RECORDING TO BEGIN THE DRIFT"}
+            </p>
+          </div>
+
+          {!error && (
+            <Link href="/submit">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-5 bg-white text-black text-[10px] font-dm-sans uppercase tracking-[.5em] font-bold shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+              >
+                BE THE FIRST
+              </motion.div>
+            </Link>
+          )}
+        </motion.div>
+
+        {/* Ambient Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-[120px] pointer-events-none" />
       </div>
     );
   }
