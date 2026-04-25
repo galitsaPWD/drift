@@ -306,7 +306,7 @@ export function SubmitForm() {
   }
 
   return (
-    <div className="relative min-h-screen w-full bg-[#050505] text-white overflow-x-hidden">
+    <div suppressHydrationWarning className="relative min-h-screen w-full bg-[#050505] text-white overflow-x-hidden">
       <AnimatePresence mode="wait">
         {preview && (
           <motion.div 
@@ -329,7 +329,7 @@ export function SubmitForm() {
         )}
       </AnimatePresence>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 py-12 md:py-24">
+      <div suppressHydrationWarning className="relative z-10 max-w-[1400px] mx-auto px-6 py-12 md:py-24">
         <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-[1.2fr,1fr] gap-16 lg:gap-32 items-start">
           
           {/* LEFT COLUMN: THE DIGITAL SILHOUETTE */}

@@ -29,8 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`} suppressHydrationWarning>
-      <body className="font-sans antialiased bg-[#050505]" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${cormorant.variable} ${dmSans.variable}`}>
+      <body suppressHydrationWarning className="font-sans antialiased bg-[#050505]">
         
         {/* Desktop Ambient Letterbox Margins (Dynamic) */}
         <div suppressHydrationWarning className="hidden md:block fixed inset-0 z-0 overflow-hidden pointer-events-none transition-colors duration-1000">
