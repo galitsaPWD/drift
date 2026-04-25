@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -50,8 +50,8 @@ export default function RootLayout({
           <div suppressHydrationWarning className="absolute inset-0 bg-[#020202]/60" />
         </div>
 
-        {/* Mobile App Letterbox Window */}
-        <div suppressHydrationWarning className="premium-frame relative mx-auto w-full max-w-[440px] h-[100dvh] bg-black overflow-y-auto overflow-x-hidden z-10 md:border-x md:border-white/[0.05]">
+        {/* Main Content Viewport */}
+        <div suppressHydrationWarning className="relative mx-auto w-full min-h-screen bg-black z-10">
           <ClientOnly>
             <Header />
             <div className="grain-overlay" aria-hidden="true" />
