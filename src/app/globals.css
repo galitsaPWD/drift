@@ -14,7 +14,7 @@
   body {
     background-color: var(--bg);
     color: var(--text);
-    @apply font-sans antialiased;
+    @apply font-dm-sans antialiased;
   }
 }
 
